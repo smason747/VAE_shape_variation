@@ -1,0 +1,28 @@
+# conda environments:
+#
+local                 *  /users/PAA0023/mason1099/.conda/envs/local
+base                     /usr/local/python/3.6-conda5.2
+
+/users/PAA0023/mason1099/.conda/envs/local/bin/python
+2022-04-15 12:22:51.980339: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2022-04-15 12:23:02.995901: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2022-04-15 12:23:03.009363: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2022-04-15 12:23:03.018501: E tensorflow/stream_executor/cuda/cuda_driver.cc:328] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+2022-04-15 12:23:03.018546: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: o0733.ten.osc.edu
+2022-04-15 12:23:03.018561: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: o0733.ten.osc.edu
+2022-04-15 12:23:03.018654: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:200] libcuda reported version is: 510.47.3
+2022-04-15 12:23:03.018701: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:204] kernel reported version is: 510.47.3
+2022-04-15 12:23:03.018714: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:310] kernel version seems to match DSO: 510.47.3
+gpus:  []
+config:
+ {'model_type': 'vae', 'data_type': 'cube_slices_28', 'nn_type': 'cnn', 'img_size': 28, 'img_channels': 1, 'batch_size': 128, 'epochs': 40, 'data_dir': '../data/', 'model_dir': '../save_model_vae/tf/', 'recon_loss_type': 'bce', 'is_bn': False, 'is_load_pretrain': False, 'z_dim': 2, 'select_seed': 2036, 'img_dir': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036/', 'fig_loss': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//loss.png', 'fig_recons': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//recon_example.png', 'fig_zmeans': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//param_predictions.png', 'fig_2d_variation': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//fig_2d_variation.png', 'cls_report': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//cls_report.txt', 'fig_reg_true_prediction': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//reg_true_prediction', 'load_model_weights': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//vae_cube_slices_28_cnn.h5', 'load_enc_weights': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//vae_enc_cube_slices_28_cnn.h5', 'load_dec_weights': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//vae_dec_cube_slices_28_cnn.h5'}
+(1, 3925000)
+(3925000,)
+Traceback (most recent call last):
+  File "run_tf_vae.py", line 88, in <module>
+    x, y = load_data(data_dir=config["data_dir"], data_type=config["data_type"], is_extra_normalization=False)
+  File "/users/PAA0023/mason1099/VAE_shape_variation-master/src/utils.py", line 28, in load_data
+    x, y = load_cube(path=data_dir + 'cubeSliceData_28px.csv')
+  File "/users/PAA0023/mason1099/VAE_shape_variation-master/src/utils.py", line 65, in load_cube
+    x = img.iloc[:, 1:].values
+AttributeError: 'numpy.ndarray' object has no attribute 'iloc'

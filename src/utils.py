@@ -24,6 +24,8 @@ def load_data(data_dir, data_type, is_extra_normalization=False):
         x, y = load_random_shape(path=data_dir + 'random_shape_c7_s2000d_diffused.csv')
     elif data_type == 'random_shape_28_manim':  # regression
         x, y = load_random_shape_manim(path=data_dir + 'manim_shapeData_10515frames.csv')
+    elif data_type == 'cube_slices_28': # classification
+        x, y = load_cube(path=data_dir + 'cubeSliceData_28px.csv')
     if is_extra_normalization:
         x = (x - 0.5) / 0.5  # from [0, 1] map to [-1, 1]s
 
@@ -51,6 +53,25 @@ def load_random_shape(path):
     x = img.iloc[:, 1:].values
     y = img.iloc[:, :1].values
     return x, y
+
+def load_cube(path):
+    
+    img = pd.read_csv(path, header=None)
+    print(img.shape)
+
+    #img = np.loadtxt(path, delimiter=',', dtype=np.uint8)
+    #print(img.shape)
+
+    x = img.iloc[:, 1:].values
+    y = img.iloc[:, :1].values
+
+    #print(x.shape)
+    #print(y.shape)
+
+    x = np.divide(x, 255)
+
+    return x, y
+
 
 def load_label2params(data_path='../../data/vtk2D_disc28.csv',
                       label2params_path='../../data/label2params.json'):

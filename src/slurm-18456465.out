@@ -1,0 +1,7 @@
+# conda environments:
+#
+local                 *  /users/PAA0023/mason1099/.conda/envs/local
+base                     /usr/local/python/3.6-conda5.2
+
+/users/PAA0023/mason1099/.conda/envs/local/bin/python
+python: can't open file 'run_tf_vae_reg.py': [Errno 2] No such file or directory
