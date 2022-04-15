@@ -19,7 +19,7 @@ from tensorflow.keras.losses import mse, binary_crossentropy
 
 class VAE():
 
-    def __init__(self, img_size=28, channels=1, config={}):
+    def __init__(self, img_size=128, channels=1, config={}):
         self.img_size = img_size
         self.channels = channels
         self.original_dim = img_size * img_size

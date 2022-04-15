@@ -32,9 +32,9 @@ if gpus:
 
 config = {
     "model_type": "vae",
-    "data_type": 'cube_slices_28',  # mnist, random_shape_28, cube_slices_28
+    "data_type": 'cube_slices_128',  # mnist, random_shape_28, cube_slices_28
     "nn_type": "cnn",  # dense, cnn
-    "img_size": 28,
+    "img_size": 128,
     "img_channels": 1,
     "batch_size": 128,
     "epochs": 40,
