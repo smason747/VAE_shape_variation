@@ -25,9 +25,9 @@ def load_data(data_dir, data_type, is_extra_normalization=False):
     elif data_type == 'random_shape_28_manim':  # regression
         x, y = load_random_shape_manim(path=data_dir + 'manim_shapeData_10515frames.csv')
     elif data_type == 'cube_slices_28': # classification
-        x, y = load_cube(path=data_dir + 'cubeSliceData_28px.csv')
+        x, y = load_cube(path=data_dir + 'cubeSliceData_28px_v2.csv')
     elif data_type == 'cube_slices_128': # classification
-        x, y = load_cube(path=data_dir + 'cubeSliceData_128px.csv')
+        x, y = load_cube(path=data_dir + 'cubeSliceData_128px_v2.csv')
     if is_extra_normalization:
         x = (x - 0.5) / 0.5  # from [0, 1] map to [-1, 1]s
 
@@ -141,7 +141,7 @@ def load_spinodal_reg(path):
     return x, y
 
 
-def train_test_split_balanced(x, y, test_size=0.2, img_size=28, is_flatten=True):
+def train_test_split_balanced(x, y, test_size=0.2, img_size=128, is_flatten=True):
 
     if y.shape[0] == 1:  # y is single label
         sss = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=0)

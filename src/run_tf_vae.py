@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     # load data
     x, y = load_data(data_dir=config["data_dir"], data_type=config["data_type"], is_extra_normalization=False)
-    x_train, x_test, y_train, y_test = train_test_split_balanced(x, y, test_size=0.2, img_size=28, is_flatten=is_data_flatten)
+    x_train, x_test, y_train, y_test = train_test_split_balanced(x, y, test_size=0.2, img_size=config["img_size"], is_flatten=is_data_flatten)
 
     # build and compile vae model
     vae = VAE(img_size=config["img_size"], channels=config["img_channels"], config=config)

@@ -1,0 +1,75 @@
+# conda environments:
+#
+local                 *  /users/PAA0023/mason1099/.conda/envs/local
+base                     /usr/local/python/3.6-conda5.2
+
+/users/PAA0023/mason1099/.conda/envs/local/bin/python
+2022-04-18 12:14:30.963769: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2022-04-18 12:14:37.785871: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2022-04-18 12:14:37.788239: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2022-04-18 12:14:37.798194: E tensorflow/stream_executor/cuda/cuda_driver.cc:328] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+2022-04-18 12:14:37.798257: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: o0673.ten.osc.edu
+2022-04-18 12:14:37.798278: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: o0673.ten.osc.edu
+2022-04-18 12:14:37.798387: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:200] libcuda reported version is: 510.47.3
+2022-04-18 12:14:37.798452: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:204] kernel reported version is: 510.47.3
+2022-04-18 12:14:37.798471: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:310] kernel version seems to match DSO: 510.47.3
+2022-04-18 12:15:11.633739: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+gpus:  []
+config:
+ {'model_type': 'vae', 'data_type': 'cube_slices_128', 'nn_type': 'cnn', 'img_size': 128, 'img_channels': 1, 'batch_size': 128, 'epochs': 40, 'data_dir': '../data/', 'model_dir': '../save_model_vae/tf/', 'recon_loss_type': 'bce', 'is_bn': False, 'is_load_pretrain': False, 'z_dim': 2, 'select_seed': 2036, 'img_dir': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036/', 'fig_loss': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//loss.png', 'fig_recons': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//recon_example.png', 'fig_zmeans': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//param_predictions.png', 'fig_2d_variation': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//fig_2d_variation.png', 'cls_report': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//cls_report.txt', 'fig_reg_true_prediction': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//reg_true_prediction', 'load_model_weights': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//vae_cube_slices_128_cnn.h5', 'load_enc_weights': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//vae_enc_cube_slices_128_cnn.h5', 'load_dec_weights': '../save_model_vae/tf//cube_slices_128/vae_img_cube_slices_128_cnn_bce_bnFalse_seed2036//vae_dec_cube_slices_128_cnn.h5'}
+(5000, 16385)
+x.shape: (5000, 16384), y.shape: (5000, 1)
+number of class: 5
+min and max of x: 0.00, 1.00
+x_train.shape: (4000, 128, 128, 1), x_test.shape: (1000, 128, 128, 1), y_train.shape: (4000, 1), y_test.shape: (1000, 1)
+
+(128, 128, 1)
+Model: "encoder"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+encoder_input (InputLayer)      [(None, 128, 128, 1) 0                                            
+__________________________________________________________________________________________________
+conv2d (Conv2D)                 (None, 63, 63, 64)   1088        encoder_input[0][0]              
+__________________________________________________________________________________________________
+dropout (Dropout)               (None, 63, 63, 64)   0           conv2d[0][0]                     
+__________________________________________________________________________________________________
+conv2d_1 (Conv2D)               (None, 30, 30, 128)  131200      dropout[0][0]                    
+__________________________________________________________________________________________________
+dropout_1 (Dropout)             (None, 30, 30, 128)  0           conv2d_1[0][0]                   
+__________________________________________________________________________________________________
+conv2d_2 (Conv2D)               (None, 15, 15, 512)  262656      dropout_1[0][0]                  
+__________________________________________________________________________________________________
+reshape (Reshape)               (None, 115200)       0           conv2d_2[0][0]                   
+__________________________________________________________________________________________________
+z_mean (Dense)                  (None, 2)            230402      reshape[0][0]                    
+__________________________________________________________________________________________________
+z_std (Dense)                   (None, 2)            230402      reshape[0][0]                    
+__________________________________________________________________________________________________
+z (Lambda)                      (None, 2)            0           z_mean[0][0]                     
+                                                                 z_std[0][0]                      
+==================================================================================================
+Total params: 855,748
+Trainable params: 855,748
+Non-trainable params: 0
+__________________________________________________________________________________________________
+Traceback (most recent call last):
+  File "run_tf_vae.py", line 96, in <module>
+    model, encoder, decoder = vae.build_cnn_vae()
+  File "/users/PAA0023/mason1099/VAE_shape_variation/src/tf_vae.py", line 99, in build_cnn_vae
+    x = Reshape((15, 15, 512))(x)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py", line 952, in __call__
+    input_list)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py", line 1091, in _functional_construction_call
+    inputs, input_masks, args, kwargs)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py", line 822, in _keras_tensor_symbolic_call
+    return self._infer_output_signature(inputs, args, kwargs, input_masks)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py", line 863, in _infer_output_signature
+    outputs = call_fn(inputs, *args, **kwargs)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py", line 557, in call
+    result.set_shape(self.compute_output_shape(inputs.shape))
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py", line 548, in compute_output_shape
+    self.target_shape)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py", line 536, in _fix_unknown_dimension
+    raise ValueError(msg)
+ValueError: total size of new array must be unchanged, input_shape = [2048], output_shape = [15, 15, 512]

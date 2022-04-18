@@ -75,12 +75,13 @@ class VAE():
     def build_cnn_vae(self):
         input_shape = (self.img_size, self.img_size, self.channels)
         latent_dim = self.z_dim # 2
+        print(input_shape)
 
         # encoder
         input1 = Input(shape=input_shape, name='encoder_input')
-        x = Conv2D(64, (4, 4), strides=[2, 2], padding='valid', activation='relu')(input1)
+        x = Conv2D(64, (2, 2), strides=[2, 2], padding='valid', activation='relu')(input1)
         x = Dropout(0.4)(x)
-        x = Conv2D(128, (4, 4), strides=[2, 2], padding='valid', activation='relu')(x)
+        x = Conv2D(128, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
         x = Dropout(0.4)(x)
         x = Conv2D(512, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
         x = Reshape((-1, ))(x)
@@ -94,11 +95,11 @@ class VAE():
 
         # decoder
         latent_inputs = Input(shape=(latent_dim,), name='z_sampling')
-        x = Dense(2*2*512)(latent_inputs)
-        x = Reshape((2, 2, 512))(x)
-        x = Conv2DTranspose(128, (4, 4), strides=[2, 2], padding='valid', activation='relu')(x)
+        x = Dense(131072)(latent_inputs)
+        x = Reshape((16, 16, 512))(x)
+        x = Conv2DTranspose(128, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
         x = Dropout(0.4)(x)
-        x = Conv2DTranspose(64, (4, 4), strides=[2, 2], padding='valid', activation='relu')(x)
+        x = Conv2DTranspose(64, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
         x = Dropout(0.4)(x)
         x = Conv2DTranspose(1, (2, 2), strides=[2, 2], padding='valid', activation='sigmoid')(x)
         decoder = Model(inputs=latent_inputs, outputs=x, name='decoder')
@@ -207,26 +208,26 @@ def sampling(inputs):
     # return z_mean + z_std * noise
 
 
-if __name__ == "__main__":
-    config = {
-    "model_type": "vae",
-    "data_type": 'spinodal_28',  # spinodal_28, spinodal_64, mnist
-    "nn_type": "dense",  # dense, cnn
-    "img_size": 28,
-    "img_channels": 1,
-    "batch_size": 64,
-    "epochs": 11,
-
-    "data_dir": "../../data/",
-    "model_dir": "../save_model/tf/",
-
-    "recon_loss_type": 'bce',  # bce, mse
-    "is_bn": False,  # add batch_normalization or not
-    "is_load_pretrain": False,
-
-    "z_dim": 64,
-}
-
-    vae = VAE(img_size=28, channels=1, config=config)
-    dense_vae = vae.build_dense_vae()
-    cnn_vae = vae.build_cnn_vae()
+#if __name__ == "__main__":
+#    config = {
+#    "model_type": "vae",
+#    "data_type": 'spinodal_28',  # spinodal_28, spinodal_64, mnist
+#    "nn_type": "dense",  # dense, cnn
+#    "img_size": 28,
+#    "img_channels": 1,
+#    "batch_size": 64,
+#    "epochs": 11,
+#
+#    "data_dir": "../../data/",
+#    "model_dir": "../save_model/tf/",
+#
+#    "recon_loss_type": 'bce',  # bce, mse
+#    "is_bn": False,  # add batch_normalization or not
+#    "is_load_pretrain": False,
+#
+#    "z_dim": 64,
+#}
+#
+#    vae = VAE(img_size=28, channels=1, config=config)
+#    dense_vae = vae.build_dense_vae()
+#    cnn_vae = vae.build_cnn_vae()

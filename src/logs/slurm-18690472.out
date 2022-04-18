@@ -1,0 +1,36 @@
+# conda environments:
+#
+local                 *  /users/PAA0023/mason1099/.conda/envs/local
+base                     /usr/local/python/3.6-conda5.2
+
+/users/PAA0023/mason1099/.conda/envs/local/bin/python
+2022-04-15 12:21:10.286935: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2022-04-15 12:21:16.126287: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2022-04-15 12:21:16.128740: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2022-04-15 12:21:16.135916: E tensorflow/stream_executor/cuda/cuda_driver.cc:328] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+2022-04-15 12:21:16.135961: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: o0686.ten.osc.edu
+2022-04-15 12:21:16.135976: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: o0686.ten.osc.edu
+2022-04-15 12:21:16.136068: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:200] libcuda reported version is: 510.47.3
+2022-04-15 12:21:16.136131: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:204] kernel reported version is: 510.47.3
+2022-04-15 12:21:16.136143: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:310] kernel version seems to match DSO: 510.47.3
+gpus:  []
+config:
+ {'model_type': 'vae', 'data_type': 'cube_slices_28', 'nn_type': 'cnn', 'img_size': 28, 'img_channels': 1, 'batch_size': 128, 'epochs': 40, 'data_dir': '../data/', 'model_dir': '../save_model_vae/tf/', 'recon_loss_type': 'bce', 'is_bn': False, 'is_load_pretrain': False, 'z_dim': 2, 'select_seed': 2036, 'img_dir': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036/', 'fig_loss': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//loss.png', 'fig_recons': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//recon_example.png', 'fig_zmeans': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//param_predictions.png', 'fig_2d_variation': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//fig_2d_variation.png', 'cls_report': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//cls_report.txt', 'fig_reg_true_prediction': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//reg_true_prediction', 'load_model_weights': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//vae_cube_slices_28_cnn.h5', 'load_enc_weights': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//vae_enc_cube_slices_28_cnn.h5', 'load_dec_weights': '../save_model_vae/tf//cube_slices_28/vae_img_cube_slices_28_cnn_bce_bnFalse_seed2036//vae_dec_cube_slices_28_cnn.h5'}
+(1, 3925000)
+(1, 3924999)
+(1, 1)
+x.shape: (1, 3924999), y.shape: (1, 1)
+number of class: 1
+min and max of x: 0.00, 1.00
+Traceback (most recent call last):
+  File "run_tf_vae.py", line 89, in <module>
+    x_train, x_test, y_train, y_test = train_test_split_balanced(x, y, test_size=0.2, img_size=28, is_flatten=is_data_flatten)
+  File "/users/PAA0023/mason1099/VAE_shape_variation-master/src/utils.py", line 151, in train_test_split_balanced
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=0)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 1387, in split
+    for train, test in self._iter_indices(X, y, groups):
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 1703, in _iter_indices
+    default_test_size=self._default_test_size)
+  File "/users/PAA0023/mason1099/.conda/envs/local/lib/python3.6/site-packages/sklearn/model_selection/_split.py", line 1861, in _validate_shuffle_split
+    train_size)
+ValueError: With n_samples=1, test_size=0.2 and train_size=None, the resulting train set will be empty. Adjust any of the aforementioned parameters.
