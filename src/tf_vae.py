@@ -78,32 +78,61 @@ class VAE():
         print(input_shape)
 
         # encoder
-        input1 = Input(shape=input_shape, name='encoder_input')
-        x = Conv2D(64, (2, 2), strides=[2, 2], padding='valid', activation='relu')(input1)
-        x = Dropout(0.4)(x)
-        x = Conv2D(128, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
-        x = Dropout(0.4)(x)
-        x = Conv2D(512, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
-        x = Reshape((-1, ))(x)
-        z_mean = Dense(latent_dim, name='z_mean')(x)
-        z_std = Dense(latent_dim, name='z_std')(x)
-        if self.is_bn:
-            z_mean, z_std = self.add_bn(z_mean, z_std)
-        z = Lambda(sampling, output_shape=(latent_dim,), name='z')([z_mean, z_std])
-        encoder = Model(inputs=input1, outputs=[z_mean, z_std, z], name='encoder')
-        encoder.summary()
-
-        # decoder
-        latent_inputs = Input(shape=(latent_dim,), name='z_sampling')
-        x = Dense(131072)(latent_inputs)
-        x = Reshape((16, 16, 512))(x)
-        x = Conv2DTranspose(128, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
-        x = Dropout(0.4)(x)
-        x = Conv2DTranspose(64, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
-        x = Dropout(0.4)(x)
-        x = Conv2DTranspose(1, (2, 2), strides=[2, 2], padding='valid', activation='sigmoid')(x)
-        decoder = Model(inputs=latent_inputs, outputs=x, name='decoder')
-        decoder.summary()
+        if self.img_size == 128:
+            input1 = Input(shape=input_shape, name='encoder_input')
+            x = Conv2D(64, (2, 2), strides=[2, 2], padding='valid', activation='relu')(input1)
+            x = Dropout(0.4)(x)
+            x = Conv2D(128, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Dropout(0.4)(x)
+            x = Conv2D(512, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Reshape((-1, ))(x)
+            z_mean = Dense(latent_dim, name='z_mean')(x)
+            z_std = Dense(latent_dim, name='z_std')(x)
+            if self.is_bn:
+                z_mean, z_std = self.add_bn(z_mean, z_std)
+            z = Lambda(sampling, output_shape=(latent_dim,), name='z')([z_mean, z_std])
+            encoder = Model(inputs=input1, outputs=[z_mean, z_std, z], name='encoder')
+            encoder.summary()
+    
+            # decoder
+            latent_inputs = Input(shape=(latent_dim,), name='z_sampling')
+            x = Dense(131072)(latent_inputs)
+            x = Reshape((16, 16, 512))(x)
+            x = Conv2DTranspose(128, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Dropout(0.4)(x)
+            x = Conv2DTranspose(64, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Dropout(0.4)(x)
+            x = Conv2DTranspose(1, (2, 2), strides=[2, 2], padding='valid', activation='sigmoid')(x)
+            decoder = Model(inputs=latent_inputs, outputs=x, name='decoder')
+            decoder.summary()
+            
+        elif self.img_size == 28:
+            input1 = Input(shape=input_shape, name='encoder_input')
+            x = Conv2D(64, (4, 4), strides=[2, 2], padding='valid', activation='relu')(input1)
+            x = Dropout(0.4)(x)
+            x = Conv2D(128, (4, 4), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Dropout(0.4)(x)
+            x = Conv2D(512, (2, 2), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Reshape((-1, ))(x)
+            z_mean = Dense(latent_dim, name='z_mean')(x)
+            z_std = Dense(latent_dim, name='z_std')(x)
+            if self.is_bn:
+                z_mean, z_std = self.add_bn(z_mean, z_std)
+            z = Lambda(sampling, output_shape=(latent_dim,), name='z')([z_mean, z_std])
+            encoder = Model(inputs=input1, outputs=[z_mean, z_std, z], name='encoder')
+            encoder.summary()
+    
+            # decoder
+            latent_inputs = Input(shape=(latent_dim,), name='z_sampling')
+            x = Dense(2*2*512)(latent_inputs)
+            x = Reshape((2, 2, 512))(x)
+            x = Conv2DTranspose(128, (4, 4), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Dropout(0.4)(x)
+            x = Conv2DTranspose(64, (4, 4), strides=[2, 2], padding='valid', activation='relu')(x)
+            x = Dropout(0.4)(x)
+            x = Conv2DTranspose(1, (2, 2), strides=[2, 2], padding='valid', activation='sigmoid')(x)
+            decoder = Model(inputs=latent_inputs, outputs=x, name='decoder')
+            decoder.summary()
 
         # vae
         output1 = decoder(encoder(input1)[-1])

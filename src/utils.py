@@ -25,9 +25,9 @@ def load_data(data_dir, data_type, is_extra_normalization=False):
     elif data_type == 'random_shape_28_manim':  # regression
         x, y = load_random_shape_manim(path=data_dir + 'manim_shapeData_10515frames.csv')
     elif data_type == 'cube_slices_28': # classification
-        x, y = load_cube(path=data_dir + 'cubeSliceData_28px_v2.csv')
-    elif data_type == 'cube_slices_128': # classification
-        x, y = load_cube(path=data_dir + 'cubeSliceData_128px_v2.csv')
+        x, y = load_cube(path=data_dir + 'cubeSliceData_28px_centered_minArea_rotated.csv')
+    elif data_type == 'cube_slices_128_v2': # classification
+        x, y = load_cube(path=data_dir + 'cubeSliceData_128px_centered_minArea_noRotate.csv')
     if is_extra_normalization:
         x = (x - 0.5) / 0.5  # from [0, 1] map to [-1, 1]s
 
@@ -275,8 +275,8 @@ def plot_2d_variation(model, n, config):
     img_size = config["img_size"]
 
     figure = np.zeros((img_size*n, img_size*n))
-    grid_x = np.linspace(-4,4,n)
-    grid_y = np.linspace(-4,4,n)
+    grid_x = np.linspace(-8,8,n)
+    grid_y = np.linspace(-8,8,n)
 
     for i, yi in enumerate(grid_y):
         for j, xi in enumerate(grid_x):
